@@ -8,13 +8,13 @@ interface IRequest {
 class ShowUserProfileUseCase {
     constructor(private usersRepository: IUsersRepository) {}
 
-    execute({ user_id }: IRequest): void {
-        const userAlredyExists = this.usersRepository.findById(user_id);
-        if (userAlredyExists) {
-            throw new Error("User Alredy Exists!");
+    execute({ user_id }: IRequest): User {
+        const user = this.usersRepository.findById(user_id);
+        if (!user) {
+            throw new Error("User Not Exists!");
         }
 
-        this.usersRepository.findById(user_id);
+        return user;
     }
 }
 
